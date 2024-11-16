@@ -20,7 +20,11 @@ const Navbar = () => {
             <Link to="/dashboard">
               <Button variant="link" color="black">Dashboard</Button>
             </Link>
-            
+            <Link to="/addproperty">
+              <Button variant="link" color="black">Add Property</Button>
+                
+              
+              </Link>
             {/* Buy Dropdown */}
             <Menu>
               <MenuButton as={Button} rightIcon={<ChevronDownIcon />} variant="link" color="black">
@@ -53,6 +57,9 @@ const Navbar = () => {
                 <MenuItem as={Link} to="/rent">Rent Option 2</MenuItem>
               </MenuList>
             </Menu>
+            
+             
+              
           </Stack>
         </Center>
 
@@ -106,6 +113,7 @@ const Navbar = () => {
                     <MenuItem as={Link} to="/rent" onClick={onClose}>Rent Option 1</MenuItem>
                     <MenuItem as={Link} to="/rent" onClick={onClose}>Rent Option 2</MenuItem>
                   </MenuList>
+                 
                 </Menu>
               </Stack>
             </DrawerBody>
