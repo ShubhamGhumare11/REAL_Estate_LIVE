@@ -80,49 +80,105 @@ const AddPropertyForm = () => {
       }
     }
 
-    const formDataToSend = new FormData();
-
-    for (const key in formData) {
-      if (key === 'propertyGallery') {
-        Array.from(formData.propertyGallery).forEach((file) => {
-          formDataToSend.append('propertyGallery', file);
-        });
-      } else if (key === 'features') {
-        for (const feature in formData.features) {
-          formDataToSend.append(`features[${feature}]`, formData.features[feature]);
-        };
-      } else {
-        formDataToSend.append(key, formData[key]);
+     // Collect selected features as a string
+     const selectedFeatures = Object.keys(formData.features)
+     .filter((feature) => formData.features[feature])
+     .join(', ');
+    // Construct propertyDTOString
+    const propertyDTO = {
+      propertyTitle: formData.propertyTitle,
+      propertyStatus: formData.status,
+      propertyType: formData.type,
+      propertyPrice: parseFloat(formData.price),
+      propertyArea: parseFloat(formData.area),
+      propertyRooms: parseInt(formData.rooms, 10),
+      propertyInformation: {
+        propertyDescription: formData.description,
+        propertyAge: parseInt(formData.buildingAge, 10),
+        propertyBedRooms: parseInt(formData.bedrooms, 10),
+        propertyBathRooms: parseInt(formData.bathrooms, 10),
+        propertyOtherFeatures: selectedFeatures  // Assuming features is an array
+      },
+      propertyLocation: {
+        propertyAddress: formData.address,
+        propertyCityName: formData.city,
+        propertyState: formData.state,
+        propertyPinCode: parseInt(formData.zipCode, 10)
+      },
+      propertyOwnerDetails: {
+        fullName: formData.contactName,
+        emailAddress: formData.contactEmail,
+        phoneNUmber: formData.contactPhone
       }
-    }
+    };
+
+    // Create formData object
+    const formDataToSend = new FormData();
+    formDataToSend.append('propertyDTOString', JSON.stringify(propertyDTO));
+
+    // Append images to formData
+    Array.from(formData.propertyGallery).forEach((file) => {
+      formDataToSend.append('multipartFile', file);
+    });
 
     try {
       const response = await axios.post('http://localhost:8080/property/Add', formDataToSend, {
         headers: {
-          'Content-Type': 'application/json'  // Correct content type for JSON data
+          'Content-Type': 'multipart/form-data'  // Correct content type for form data with files
         }
       });
+      console.log('Response:', response);
       toast({
         title: 'Property submitted successfully!',
         status: 'success',
         duration: 4000,
         isClosable: true,
       });
-   
-    
+
+      setFormData({
+        propertyTitle: '',
+        status: '',
+        type: '',
+        price: '',
+        area: '',
+        rooms: '',
+        address: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        description: '',
+        contactName: '',
+        contactEmail: '',
+        contactPhone: '',
+        buildingAge: '',
+        bedrooms: '',
+        bathrooms: '',
+        features: {
+          airConditioning: false,
+          swimmingPool: false,
+          centralHeating: false,
+          laundryRooms: false,
+          gym: false,
+          windowCovering: false
+        },
+        propertyGallery: []
+      });
+
     } catch (error) {
+      console.error('Error submitting property:', error);
       toast({
-        title: 'Error submitting the form.',
+        title: 'Error submitting property.',
+        description: error.message,
         status: 'error',
         duration: 4000,
         isClosable: true,
       });
-      console.error('Error submitting the form:', error);
     }
-  };
+};
+
 
   return (
-    <Box bg="white" p={6} borderRadius="md" boxShadow="md">
+    <Box bg="white" p={6} borderRadius="md" boxShadow="md" style={{marginLeft: '20%', marginRight: '20%', alignSelf: 'center', border: 'solid black 1px'}}>
       <Heading mb={6} fontSize="xl" textAlign="center" bg="#FCCBBE" p={3} borderRadius="md">
         Add Property Form
       </Heading>
@@ -132,7 +188,8 @@ const AddPropertyForm = () => {
         <Box bg="pink.100" p={4} borderRadius="md" border="1px solid #ccc">
           <Heading mb={6} fontSize="xl" textAlign="center" bg="#FCCBBE" p={3} borderRadius="md">Property Gallery</Heading>
           <FormControl>
-            <FormLabel textAlign="center">Choose Image</FormLabel>
+            
+            <Box mt={2} border="1px dashed gray" p={4} textAlign="center" cursor="pointer">
             <Button 
               colorScheme="red" 
               _hover={{ bg: 'red.600' }} 
@@ -140,7 +197,7 @@ const AddPropertyForm = () => {
               mx="auto"
               onClick={() => document.getElementById('file-input').click()} // Trigger file input on button click
             >
-              Add Images
+              <FormLabel textAlign="center">Choose Image</FormLabel>
             </Button>
             <Input 
               id="file-input" 
@@ -150,7 +207,7 @@ const AddPropertyForm = () => {
               onChange={handleFileChange} 
               style={{ display: 'none' }} // Hide the default file input
             />
-            <Box mt={2} border="1px dashed gray" p={4} textAlign="center" cursor="pointer">
+            
               Choose Image or drag image here to upload
             </Box>
           </FormControl>
@@ -268,7 +325,54 @@ const AddPropertyForm = () => {
             <option value="2">2 Bathrooms</option>
             <option value="3">3+ Bathrooms</option>
           </Select>
+
         </Box>
+        {/* Features Section */}
+        <Box bg="gray.100" p={4} borderRadius="md" border="1px solid #ccc">
+          <Heading mb={6} fontSize="xl" textAlign="center" bg="#FCCBBE" p={3} borderRadius="md">Property Features</Heading>
+          <FormControl>
+            <label>
+              <input type="checkbox" name="airConditioning" checked={formData.features.airConditioning} onChange={handleChange} />
+              Air Conditioning
+            </label>
+          </FormControl>
+
+          <FormControl>
+            <label>
+              <input type="checkbox" name="swimmingPool" checked={formData.features.swimmingPool} onChange={handleChange} />
+              Swimming Pool
+            </label>
+          </FormControl>
+
+          <FormControl>
+            <label>
+              <input type="checkbox" name="centralHeating" checked={formData.features.centralHeating} onChange={handleChange} />
+              Central Heating
+            </label>
+          </FormControl>
+
+          <FormControl>
+            <label>
+              <input type="checkbox" name="laundryRooms" checked={formData.features.laundryRooms} onChange={handleChange} />
+              Laundry Rooms
+            </label>
+          </FormControl>
+
+          <FormControl>
+            <label>
+              <input type="checkbox" name="gym" checked={formData.features.gym} onChange={handleChange} />
+              Gym
+            </label>
+          </FormControl>
+
+          <FormControl>
+            <label>
+              <input type="checkbox" name="windowCovering" checked={formData.features.windowCovering} onChange={handleChange} />
+              Window Covering
+            </label>
+          </FormControl>
+        </Box>
+
 
         {/* Contact Info Section */}
         <Box bg="gray.100" p={4} borderRadius="md" border="1px solid #ccc">
