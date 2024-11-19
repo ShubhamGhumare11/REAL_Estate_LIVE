@@ -178,14 +178,11 @@ const AddPropertyForm = () => {
 
 
   return (
-    <Box bg="white" p={6} borderRadius="md" boxShadow="md" style={{marginLeft: '20%', marginRight: '20%', alignSelf: 'center', border: 'solid black 1px'}}>
-      <Heading mb={6} fontSize="xl" textAlign="center" bg="#FCCBBE" p={3} borderRadius="md">
-        Add Property Form
-      </Heading>
-
+    <Box bg="white" p={6} borderRadius="" boxShadow="" style={{marginLeft: '%', marginRight: '0%', alignSelf: 'center', border: ''}}>
+      
       <VStack spacing={6} align="stretch" as="form" onSubmit={handleSubmit}>
         {/* Property Gallery Section */}
-        <Box bg="pink.100" p={4} borderRadius="md" border="1px solid #ccc">
+        <Box bg=".100" p={4} borderRadius="md" border="1px solid #ccc">
           <Heading mb={6} fontSize="xl" textAlign="center" bg="#FCCBBE" p={3} borderRadius="md">Property Gallery</Heading>
           <FormControl>
             
@@ -205,7 +202,6 @@ const AddPropertyForm = () => {
               accept="image/*" 
               multiple 
               onChange={handleFileChange} 
-              style={{ display: 'none' }} // Hide the default file input
             />
             
               Choose Image or drag image here to upload
@@ -226,8 +222,8 @@ const AddPropertyForm = () => {
             <FormLabel>Status <span style={{ color: 'red' }}>*</span></FormLabel>
             <Select name="status" value={formData.status} onChange={handleChange} required>
               <option value="">Select Status</option>
-              <option value="Sale">Sale</option>
-              <option value="Rent">Rent</option>
+              <option value="SALE">Sale</option>
+              <option value="RENT">Rent</option>
             </Select>
           </FormControl>
 
