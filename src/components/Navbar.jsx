@@ -11,20 +11,16 @@ const Navbar = () => {
       <Flex h={16} alignItems="center" justifyContent="space-between">
         {/* App Title (Left Aligned) */}
         <Text fontSize="2xl" fontWeight="bold">
-          Real Estate App
+        <Link to='/'> Real Estate App</Link> 
         </Text>
         
         {/* Centered Menu Links */}
         <Center flex="1">
           <Stack direction="row" spacing={4} display={{ base: 'none', md: 'flex' }} align="center">
-            <Link to="/dashboard">
+            <Link to="/dashboardlayout">
               <Button variant="link" color="black">Dashboard</Button>
             </Link>
-            <Link to="/addproperty">
-              <Button variant="link" color="black">Add Property</Button>
-                
-              
-              </Link>
+           
             {/* Buy Dropdown */}
             <Menu>
               <MenuButton as={Button} rightIcon={<ChevronDownIcon />} variant="link" color="black">
@@ -84,7 +80,7 @@ const Navbar = () => {
 
             <DrawerBody >
               <Stack spacing={4} align="center">
-                <Link to="/dashboard">
+                <Link to="/Sidebar">
                   <Button variant="link" color="red" onClick={onClose}>Dashboard</Button>
                 </Link>
                 <Menu>

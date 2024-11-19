@@ -10,7 +10,7 @@ const StatsSection = () => {
       height="auto" // Auto height so it adjusts based on content
       py={{ base: '30px', md: '60px' }} // Padding adjusts on small (base) and medium (md) screens
       px={{ base: '20px', md: '178px' }} // Horizontal padding adjusts on smaller and larger screens
-      bg="gray.200" // Background color
+      bg="gray.100" // Background color
     >
       <SimpleGrid
        

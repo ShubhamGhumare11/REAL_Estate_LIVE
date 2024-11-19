@@ -3,7 +3,7 @@ import { Container } from '@chakra-ui/react';
 import HeroSection from './HeroSection';
 import FeaturesSection from './FeaturesSection';
 import AboutUsSection from './AboutUsSection';
-import ContactSection from './ContactSection';
+import Clients from './Clients';
 import StatsSection from './StatsSection';
 import Services from './Services';
 import FindLocation from './FindLocation';
@@ -32,7 +32,7 @@ const HomePage = () => {
 
 
       {/* Contact Section */}
-      <ContactSection />
+      <Clients />
     </section>
   );
 };
