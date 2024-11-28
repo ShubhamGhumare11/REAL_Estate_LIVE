@@ -1,9 +1,19 @@
 import React from 'react';
 import { Box, Image, Text, VStack } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const PropertyCard = ({ property }) => {
+  const navigate = useNavigate();
+
+  // Function to handle card click
+  const handleCardClick = () => {
+    navigate(`/properties/${property.id}`, { state: { property } }); // Pass property data as state
+  };
+  
+
   return (
     <Box
+      onClick={handleCardClick}
       border="1px"
       borderColor="gray.200"
       borderRadius="8px"
@@ -11,6 +21,8 @@ const PropertyCard = ({ property }) => {
       boxShadow="md"
       bg="white"
       p="5"
+      cursor="pointer" // Indicate that the card is clickable
+      _hover={{ boxShadow: 'lg', transform: 'scale(1.02)', transition: 'all 0.3s' }} // Add hover effect
     >
       {/* Property Image */}
       <Image
