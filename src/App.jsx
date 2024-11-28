@@ -10,8 +10,8 @@ import AddProperty from './components/AddProperty';
 import DashboardLayout from './components/DashBoardLayout';
 // import AboutPage from './components/AboutPage';
 // import ContactPage from './components/ContactPage';
-// import PropertyDetailsPage from './components/PropertyDetailsPage';
-// import PropertiesListPage from './components/PropertiesListPage';
+import PropertyDetailsPage from './components/PropertyDetailsPage';
+import PropertiesList from './components/PropertiesList';
 
 const App = () => {
   return (
@@ -30,8 +30,8 @@ const App = () => {
           <Route path="/addproperty" element={<AddProperty />} />
           {/* <Route path="/about" element={<AboutPage />} /> */}
           {/* <Route path="/contact" element={<ContactPage />} /> */}
-          {/* <Route path="/properties" element={<PropertiesListPage />} /> */}
-          {/* <Route path="/properties/:id" element={<PropertyDetailsPage />} /> */}
+          <Route path="/properties" element={<PropertiesList />} />
+          <Route path="/properties/:id" element={<PropertyDetailsPage />} />
         </Routes>
         
         {/* Footer at the bottom */}

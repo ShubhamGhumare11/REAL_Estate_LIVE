@@ -233,7 +233,7 @@ const AddPropertyForm = () => {
               <option value="">Select Type</option>
               <option value="House">House</option>
               <option value="Apartment">Apartment</option>
-              <option value="Condo">Condo</option>
+              <option value="Office">Office</option>
             </Select>
           </FormControl>
 

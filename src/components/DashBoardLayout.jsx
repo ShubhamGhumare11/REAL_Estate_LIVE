@@ -30,21 +30,34 @@ const DashboardLayout = () => {
       minH="100vh"
     >
       {/* Header */}
-      
+      <Box
+        bg="gray.800"
+        color="white"
+        p="4"
+        textAlign="center"
+        display={{ base: "block", md: "none" }}
+      >
+        <Heading size="md">Dashboard</Heading>
+      </Box>
 
       {/* Main Layout */}
-      <Box display="flex" flex="1" overflow="hidden">
+      <Box
+        display="flex"
+        flex="1"
+        flexDirection={{ base: "column", md: "row" }}
+        overflow="hidden"
+      >
         {/* Sidebar */}
         <Box
-          w="250px"
+          w={{ base: "100%", md: "250px" }}
           bg="gray.100"
           color="Black"
           p="6"
           display="flex"
           flexDirection="column"
-          minH="calc(100vh - 64px)" // Subtract the header height
+          minH={{ base: "auto", md: "calc(100vh - 64px)" }} // Responsive height
         >
-          <Heading size="md" mb="4">
+          <Heading size="md" mb="4" display={{ base: "none", md: "block" }}>
             Dashboard
           </Heading>
           <List spacing={3}>
